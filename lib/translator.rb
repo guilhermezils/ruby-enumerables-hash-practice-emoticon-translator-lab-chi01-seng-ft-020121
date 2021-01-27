@@ -1,53 +1,31 @@
 # require modules here
 require "yaml"
-
-
-
-
-def load_library (file_path)
-  file = YAML.load_file(file_path)
-  dictionary = {}
-  file.each do |name, emoji_array|
-    dictionary[name] = {:english => {}, :japanese => {}}
-    emoji_array.each_with_index do |emoji, index|
-      if index == 0
-        dictionary[name][:english] = emoji
-      elsif index == 1
-        dictionary[name][:japanese] = emoji
-      end
-    end
+def load_library filepath
+  empty_hash = {}
+  library = YAML.load_file(filepath)
+  library.each do |key, value|
+    empty_hash[key] = {}
+    empty_hash[key][:english] = value[0]
+    empty_hash[key][:japanese] = value[1]
   end
-  dictionary
+  empty_hash
 end
-
-
-def get_japanese_emoticon
-  dictionary = load_library(file_path)
-  j_emoti = " "
-  
-  dictionary.each do |name, value|
-    if emoji == value[:japanese]
-      return j_emoti = name
-    else
-      j_emoti = "Sorry, that emoticon was not found"
-    end
+# pp load_library "./lib/emoticons.yml"
+def get_japanese_emoticon(library, emoticon)
+  emotions = load_library(library)
+  emotions.each do |key, value|
+    if emotions[key][:english] == emoticon
+      return emotions[key][:japanese]
   end
-  j_emoti
-end
-
-
-
-def get_english_meaning(file_path, emoji)
-  dictionary = load_library(file_path)
-  eng_name = ""
-  dictionary.each do |name, value|
-    if emoji == value[:japanese]
-      return eng_name = name
-    else
-      eng_name = "Sorry, that emoticon was not found"
-    end
   end
-  eng_name
+  return "Sorry, that emoticon was not found"
 end
-
-
+def get_english_meaning(library, emoticon)
+  emotions = load_library(library)
+  emotions.each do |key, value|
+    if emotions[key][:japanese] == emoticon
+      return key
+  end
+  end
+  return "Sorry, that emoticon was not found"
+end
