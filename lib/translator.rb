@@ -1,5 +1,8 @@
 # require modules here
 require "yaml"
+
+
+
 def load_library filepath
   empty_hash = {}
   library = YAML.load_file(filepath)
@@ -10,16 +13,18 @@ def load_library filepath
   end
   empty_hash
 end
-# pp load_library "./lib/emoticons.yml"
+
 def get_japanese_emoticon(library, emoticon)
-  emotions = load_library(library)
-  emotions.each do |key, value|
-    if emotions[key][:english] == emoticon
-      return emotions[key][:japanese]
+  emoticons = load_library(library)
+  emoticons.each do |key, value|
+    if emoticons[key][:english] == emoticon
+      return emoticons[key][:japanese]
   end
   end
   return "Sorry, that emoticon was not found"
 end
+
+
 def get_english_meaning(library, emoticon)
   emoticons = load_library(library)
   emoticons.each do |key, value|
