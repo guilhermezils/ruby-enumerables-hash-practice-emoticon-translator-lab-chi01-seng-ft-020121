@@ -27,7 +27,7 @@ def get_japanese_emoticon
   
   dictionary.each do |name, value|
     if emoji == value[:japanese]
-      return j_emoti = n
+      return j_emoti = name
     else
       j_emoti = "Sorry, that emoticon was not found"
     end
