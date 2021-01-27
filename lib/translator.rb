@@ -21,9 +21,9 @@ def get_japanese_emoticon(library, emoticon)
   return "Sorry, that emoticon was not found"
 end
 def get_english_meaning(library, emoticon)
-  emotions = load_library(library)
-  emotions.each do |key, value|
-    if emotions[key][:japanese] == emoticon
+  emoticons = load_library(library)
+  emoticons.each do |key, value|
+    if emoticons[key][:japanese] == emoticon
       return key
   end
   end
